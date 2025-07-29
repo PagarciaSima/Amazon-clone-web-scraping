@@ -1,1 +1,13 @@
-<p>main works!</p>
+<p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
+    <ng-template #end>
+        <p-inputgroup>
+            <p-inputgroup-addon>
+                <i class="pi pi-search"></i>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="Search a product" />
+            <p-inputgroup-addon>
+                <p-button icon="pi pi-search" severity="success" [loading]="loading" />
+            </p-inputgroup-addon>
+        </p-inputgroup>
+    </ng-template>
+</p-toolbar>

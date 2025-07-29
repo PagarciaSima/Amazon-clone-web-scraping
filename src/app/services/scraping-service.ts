@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ScrapingResponse } from '../models/scraping-response';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -7,13 +9,13 @@ import { Injectable } from '@angular/core';
 export class ScrapingService {
 
     private apiUrl: string = 'https://scraper-api.decodo.com/v2/scrape';
-    private apiKey: string = 'VTAwMDAyOTI0ODY6UFdfMWVlMzNkNTcwYmNhMTFlZTU4MGU2ZDAxMjRlNTkxZjQ2';
+    private apiKey: string = '';
 
     constructor(private http: HttpClient) {
 
     }
 
-    searchAmazon(query: string) {
+    searchAmazon(query: string):Observable<ScrapingResponse> {
         const headers: HttpHeaders = new HttpHeaders({
             'Accept': 'application/json',
             'Authorization': `BASIC ${this.apiKey}`,
@@ -26,6 +28,6 @@ export class ScrapingService {
             page_from: '1',
             parse: true
         }
-        return this.http.post<any>(this.apiUrl, body, { headers });
+        return this.http.post<ScrapingResponse>(this.apiUrl, body, { headers });
     }
 }
