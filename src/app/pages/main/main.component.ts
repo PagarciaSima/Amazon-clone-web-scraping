@@ -4,6 +4,9 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
+import { ScrapingResponse } from '../../models/scraping-response';
+import { ProductListComponent } from '../../components/product-list/product-list.component';
 
 @Component({
   selector: 'app-main',
@@ -11,7 +14,9 @@ import { ButtonModule } from 'primeng/button';
     ToolbarModule,
     InputGroupModule,
     InputGroupAddonModule,
-    ButtonModule
+    ButtonModule,
+    FormsModule,
+    ProductListComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
@@ -19,6 +24,8 @@ import { ButtonModule } from 'primeng/button';
 export class MainComponent implements OnInit{
 
   loading: boolean = false;
+  searchQuery: string = '';
+  searchResult: ScrapingResponse | undefined = undefined;
 
   constructor(
     private scrapingService: ScrapingService
@@ -31,9 +38,15 @@ export class MainComponent implements OnInit{
   }
 
   search() {
-    this.scrapingService.searchAmazon('laptop').subscribe({
+    this.loading = true;
+    this.searchResult = undefined;
+    this.scrapingService.searchAmazon(this.searchQuery).subscribe({
       next: (res) => {
-        console.log(res);
+        this.searchResult = res;
+        this.loading = false;
+      }, error: (err) => {
+        console.error(err);
+        this.loading = false;
       }
     })
   }

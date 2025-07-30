@@ -1,13 +1,51 @@
-<p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
-    <ng-template #end>
-        <p-inputgroup>
-            <p-inputgroup-addon>
-                <i class="pi pi-search"></i>
-            </p-inputgroup-addon>
-            <input pInputText placeholder="Search a product" />
-            <p-inputgroup-addon>
-                <p-button icon="pi pi-search" severity="success" [loading]="loading" />
-            </p-inputgroup-addon>
-        </p-inputgroup>
-    </ng-template>
-</p-toolbar>
+<div>
+
+    <p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
+        <ng-template #end>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-search"></i>
+                </p-inputgroup-addon>
+                <input [(ngModel)]="searchQuery" pInputText placeholder="Search a product" />
+                <p-inputgroup-addon>
+                    <p-button (click)="search()" icon="pi pi-search" severity="success" [loading]="loading" />
+                </p-inputgroup-addon>
+            </p-inputgroup>
+        </ng-template>
+    </p-toolbar>
+
+    <div class="p-3">
+        @if(this.searchResult) {
+            @if(this.searchResult.results[0].content.results.results.amazons_choices) {
+                <app-product-list
+                    [title]="'Amazon choice'"
+                    [products]="this.searchResult.results[0].content.results.results.amazons_choices || []"
+                >
+                </app-product-list>
+            }
+            @if(this.searchResult.results[0].content.results.results.paid) {
+                <app-product-list
+                    [title]="'Paid'"
+                    [products]="this.searchResult.results[0].content.results.results.paid || []"
+                >
+                </app-product-list>
+            }
+            @if(this.searchResult.results[0].content.results.results.organic) {
+                <app-product-list
+                    [title]="'Organic'"
+                    [products]="this.searchResult.results[0].content.results.results.organic || []"
+                >
+                </app-product-list>
+            }
+            @if(this.searchResult.results[0].content.results.results.suggested) {
+                <app-product-list
+                    [title]="'Suggested'"
+                    [products]="this.searchResult.results[0].content.results.results.suggested || []"
+                >
+                </app-product-list>
+            }
+        }
+    </div>
+
+
+</div>
