@@ -13,3 +13,7 @@
 .price-range {
     color: #565959;
 }
+
+::ng-deep .p-rating .p-icon {
+  color: gold !important; /* O usa otro tono de amarillo */
+}

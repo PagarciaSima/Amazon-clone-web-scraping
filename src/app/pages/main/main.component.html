@@ -6,7 +6,7 @@
                 <p-inputgroup-addon>
                     <i class="pi pi-search"></i>
                 </p-inputgroup-addon>
-                <input [(ngModel)]="searchQuery" pInputText placeholder="Search a product" />
+                <input [(ngModel)]="searchQuery" pInputText placeholder="Search a product" (keydown.enter)="search()" />
                 <p-inputgroup-addon>
                     <p-button (click)="search()" icon="pi pi-search" severity="success" [loading]="loading" />
                 </p-inputgroup-addon>
