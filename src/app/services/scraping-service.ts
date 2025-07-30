@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ScrapingService {
 
     private apiUrl: string = 'https://scraper-api.decodo.com/v2/scrape';
-    private apiKey: string = 'API_KEY';
+    private apiKey: string = 'VTAwMDAyOTI0ODY6UFdfMWVlMzNkNTcwYmNhMTFlZTU4MGU2ZDAxMjRlNTkxZjQ2';
 
     constructor(private http: HttpClient) {
 
