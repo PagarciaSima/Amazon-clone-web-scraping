@@ -1,0 +1,55 @@
+<p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+    <ng-template #header>
+        <img alt="Card" class="w-full" [src]="product.url_image" height="200" />
+    </ng-template>
+    <ng-template #title> 
+        <span pTooltip = "{{ product.title }}">
+            {{ wrapTitle(product.title) }}
+        </span>
+    </ng-template>
+    <ng-template #subtitle>
+        <p-button
+            label="ASIN: {{ product.asin }}"
+            class="m-0"
+            icon="pi pi-external-link"
+            iconPos="right"
+            [link]="true"
+        />
+
+    </ng-template>
+
+    <div class="flex gap-2">
+        <p-rating [(ngModel)]="product.rating" [readonly]="true"/>
+        <span>{{ product.reviews_count }}</span>
+        @if (product.is_amazons_choice) {
+            <p-message severity="success">Amazon choice</p-message>
+        }
+    </div>
+
+    <div class="flex gap-2 mt-1">
+        @if(product.best_seller) {
+            <p-message severity="error">Best seller</p-message>
+        }
+        @if(product.is_prime) {
+            <p-message severity="error">Amazon prime</p-message>
+        }
+    </div>
+
+    <div class="price">
+        <span class="current-price">
+            {{product.currency}} {{product.price}}
+        </span>
+        @if (product.price_strikethrough) {
+           <span class="strikethrough">
+                {{product.currency}} {{product.price_strikethrough}}
+           </span> 
+        } @else if (product.price_upper) {
+            <span class="price-range">
+                {{product.currency}} {{product.price_upper}}
+            </span>
+        }
+    </div>
+
+    <span>{{ product.shipping_information }}</span>
+
+</p-card>
